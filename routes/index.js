@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { renderHome } = require("../controllers/indexController");
+const { renderHome, sendMessage,subscribe } = require("../controllers/indexController");
 
 router.route("/").get(renderHome);
 
+router.route("/contact").get(sendMessage)
+
+router.route("/subscribe").get(subscribe)
 module.exports = router;
