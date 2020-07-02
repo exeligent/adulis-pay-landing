@@ -4,10 +4,13 @@ const expressSanitizer = require("express-sanitizer");
 const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
+const passport = require("passport");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 //initializing routes
 app.use(methodOverride("_method"));
 
@@ -36,9 +39,13 @@ app.use((req, res, next) => {
 
 //INTIALIZING ROUTES
 const indexRoutes = require("./routes/index");
+const userRoutes = require("./routes/user");
+const dashboardRoutes = require("./routes/admin");
 
 //ROUTE SETUP
 app.use("/", indexRoutes);
+app.use("/user", userRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 const port = process.env.PORT || 5000;
 
