@@ -16,15 +16,14 @@ module.exports = {
   registerAdmin: async (req, res, next) => {
     try {
       //VALIDATION
-      const { errors, isValid } = validateRegister(req.body);
+      let { errors, isValid } = validateRegister(req.body);
       if (!isValid) {
-        req.flash("error", Object.values(errors));
-        return res.redirect("/register");
+        return res.status(401).json(errors);
       }
       User.findOne({ email: req.body.email }).then((user) => {
         if (user) {
-          req.flash("error", "The email alredy exist");
-          return res.status(400).redirect("/register");
+          errors.email = "The email alredy exist";
+          return res.status(401).json(errors);
         } else {
           const newUser = new User({
             name: req.body.name,
@@ -36,11 +35,7 @@ module.exports = {
               if (err) console.log("err", err);
               newUser.password = hash;
               newUser.save().then((user) => {
-                req.flash(
-                  "success",
-                  newUser.name + " is registered successfully!"
-                );
-                res.json(user);
+                res.json({ success: true });
                 //res.redirect("/register");
               });
             });

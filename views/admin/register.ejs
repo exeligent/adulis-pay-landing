@@ -35,32 +35,36 @@
         <div class="col-lg-9">
           <h2>Register a new Admin<span class="dot">.</span></h2>
           <hr class="space-sm">
-          <form action="themekit/scripts/contact-form/contact-form.php" class="form-box form-ajax" method="post"
-            data-email="example@domain.com">
-            <div class="row">
+          <form id="registerationForm" class="form-box" method="POST">
 
+            <div class="row">
+              <div class="col-lg-12">
+                <div id="reg_success" style="display: none;"></div>
+              </div>
               <div class="col-lg-6">
                 <label for="name">Name</label>
-                <input id="name" name="name" placeholder="" type="text" class="input-text" required="">
+                <input id="name" name="name" placeholder="" type="text" class="input-text mb-0">
+                <span class="invalid-feedback" id='name_error'></span>
+
               </div>
               <div class="col-lg-6">
                 <label for="email">Email</label>
-                <input id="email" name="email" placeholder="" type="email" class="input-text" required="">
+                <input id="email" name="email" placeholder="" type="email" class="input-text mb-0">
+                <span class="invalid-feedback" id='email_error'></span>
 
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 ">
+                <hr class="space-xs" />
                 <label for="email">Password</label>
-                <input id="password" name="password" placeholder="" type="password" class="input-text" required="">
+                <input id="password" name="password" placeholder="" type="password" class="input-text mb-0">
+                <span class="invalid-feedback" id='password_error'></span>
+
               </div>
             </div>
+            <hr class="space-sm" />
 
             <button class="btn btn-sm btn-circle" type="submit">Register</button>
-            <div class="success-box">
-              <div class="alert alert-success">Congratulations. Your message has been sent successfully</div>
-            </div>
-            <div class="error-box">
-              <div class="alert alert-warning">Error, please retry. Your message has not been sent</div>
-            </div>
+
           </form>
         </div>
         <hr class="space-lg" />

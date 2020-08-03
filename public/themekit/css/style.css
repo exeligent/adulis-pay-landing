@@ -259,8 +259,8 @@ body.boxed-layout footer {
   margin-left: auto;
   margin-right: auto;
 }
-.feature-center{
-    align-self:center
+.feature-center {
+  align-self: center;
 }
 /* 
 
@@ -1809,7 +1809,50 @@ SUBTITLE - NAVIGATION MENU
   height: 70px;
   line-height: 70px;
 }
+/* LOGIN CONTENER  */
+@media only screen and (min-width: 600px) {
+  .login-container {
+    padding: 10%;
+  }
+}
+.img-center {
+  left: 50%;
+  right: 50%;
+  vertical-align: middle;
+  place-items: center;
+  align-items: center;
+  align-content: center;
+  justify-self: center;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.text-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  text-align: center;
+  left: 50%;
+  right: 50%;
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
 
+#reg_success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  text-align: center;
+  left: 50%;
+  right: 50%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
 /*
 -------------------------------------------------------------------
 MIDDLE AND TOP LOGO - NAVIGATION MENU

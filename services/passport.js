@@ -23,13 +23,16 @@ passport.use(
       passwordField: "password",
       passReqToCallback: true,
     },
-    function (req, email, password, done) {
+    function async(req, email, password, done) {
+      console.log("got here1");
       let { isValid, errors } = validateLogin(req.body);
 
       if (!isValid) {
+        console.log("errors", errors);
         req.flash("error", Object.values(errors));
         return done(null, false);
       }
+      console.log("email, password", email, password);
       User.findOne({ email: email }, function (err, user) {
         if (err) {
           console.log(err);

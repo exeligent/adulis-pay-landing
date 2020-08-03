@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Album | Containers | Themekit</title>
-  <meta name="description" content="JQuery / HTML list and gallery with pagination and load more.">
+  <title>Adulis-Pay | Administrator login | </title>
   <script src="../../themekit/scripts/jquery.min.js"></script>
   <script src="../../themekit/scripts/main.js"></script>
   <link rel="stylesheet" href="../../themekit/css/bootstrap-grid.css">
@@ -22,26 +21,28 @@
 
   <main>
     <section class="section-base">
-      <div class="container" style="padding: 10%;">
+      <div class="container login-container">
 
         <div class="cnt-box cnt-call ">
-          <div style="text-align: center;">
-            <img class="" src="/media/logo-light.svg" alt="logo" />
-            <h3>Login</h3>
+          <div class="img-center">
+            <img class="" height="60" width="100" src="/media/logo-dark.svg" alt="logo" />
+            <h3><strong> Log in to your dashboard </strong></h3>
           </div>
-          <form action="themekit/scripts/contact-form/contact-form.php" class="form-box form-ajax  " method="post"
-            data-email="example@domain.com" style="padding: 0%;">
-
-
+          <form action="/user/login" class="form-box" method="POST" style="padding: 0%;">
+            <%if(error && error.length){%>
+            <div class="text-danger" id="email_error">
+              <%=error? error: null%>
+            </div>
+            <%}%>
             <div class="row">
               <div class="col-sm-12  form-group">
                 <label for="email">Email :</label>
-                <input id="name" name="name" placeholder="Name" type="text" id="email" class="input-text" required="">
+                <input id="email" name="email" placeholder="" class="input-text">
               </div>
               <hr class="space-lg" />
               <div class="col-sm-12  form-group">
-                <label for="email">Password :</label>
-                <input id="name" name="name" placeholder="Name" type="text" id="email" class="input-text" required="">
+                <label for="password">Password :</label>
+                <input id="password" name="password" type="password" class="input-text">
               </div>
             </div>
             <div style="text-align: center;">
@@ -51,7 +52,7 @@
             </div>
             <hr class="space-sm" />
 
-            <a class="btn-text" href="#">Back to home</a>
+            <a class="btn-text" href="/">Back to home</a>
           </form>
         </div>
       </div>

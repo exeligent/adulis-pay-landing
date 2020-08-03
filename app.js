@@ -5,14 +5,19 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const passport = require("passport");
-
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-//initializing routes
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+//mongose setup
+mongoose
+  .connect("mongodb://127.0.0.1/edufin", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
 app.use(methodOverride("_method"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   session({
@@ -24,15 +29,20 @@ app.use(
   })
 );
 
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+require("./services/passport");
+//initializing routes
+
 //AUTHENTICATION CHECK
 app.use((req, res, next) => {
   res.locals.session = req.session; //setting session to a user
   res.locals.sessionID = req.sessionID;
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error");
-  res.locals.success = req.flash("success");
-  res.locals.error_form = req.flash("error_form");
-  res.locals.success_form = req.flash("success_form");
 
   next();
 });

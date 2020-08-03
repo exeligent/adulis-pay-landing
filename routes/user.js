@@ -7,7 +7,7 @@ const {
 } = require("../controllers/authController");
 const passport = require("passport");
 
-router.route("/register").get(registerAdmin);
+router.route("/register").post(isLoggedIn, registerAdmin);
 
 router.route("/login").get(renderLogin);
 
@@ -15,11 +15,19 @@ router.post(
   "/login",
   passport.authenticate("local.signin", {
     successRedirect: "/",
-    failureRedirect: "/login",
+    failureRedirect: "/user/login",
     failureFlash: true,
   })
 );
 
-router.route("/logout").get(logout);
+router.route("/logout").get(isLoggedIn, logout);
 
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  req.flash("error", "You must be logged in first!");
+  res.redirect("/user/login");
+}
 module.exports = router;

@@ -264,35 +264,29 @@
                 <div class="col-lg-8">
                     <h2>Let's get in touch<span class="dot">.</span></h2>
                     <hr class="space-sm">
-                    <form action="themekit/scripts/contact-form/contact-form.php" class="form-box form-ajax"
-                        method="post" data-email="example@domain.com">
+                    <h4 id="success" style=" display: none;"></h4>
+                    <form id="contactForm" class="form-box form-contact" method="post" data-email="example@domain.com">
                         <div class="row">
                             <div class="col-lg-6">
                                 <p>Name</p>
-                                <input id="name" name="name" placeholder="" type="text" class="input-text" required="">
+                                <input id="name" name="name" placeholder="" type="text" class="input-text mb-0">
+                                <span class="invalid-feedback" id='name_error'></span>
+
                             </div>
                             <div class="col-lg-6">
                                 <p>Email</p>
-                                <input id="email" name="email" placeholder="" type="email" class="input-text"
-                                    required="">
+                                <input id="email" name="email" placeholder="" type="email" class="input-text mb-0">
+                                <span class="invalid-feedback" id='email_error'></span>
+
                             </div>
                         </div>
-                        <p>Messagge</p>
-                        <textarea id="messagge" name="messagge" class="input-textarea" placeholder=""
-                            required=""></textarea>
-                        <div class="form-checkbox">
-                            <input type="checkbox" id="check" name="check" value="check" required="">
-                            <label for="check">You accept the terms of service and the privacy policy</label>
-                        </div>
-                        <button class="btn btn-sm btn-circle btn-border" type="submit">Send messagge</button>
-                        <div class="success-box">
-                            <div class="alert alert-success">Congratulations. Your message has been sent
-                                successfully</div>
-                        </div>
-                        <div class="error-box">
-                            <div class="alert alert-warning">Error, please retry. Your message has not been sent
-                            </div>
-                        </div>
+                        <p class="mt-20">Messagge</p>
+                        <textarea id="comment" name="comment" class="input-textarea mb-0 " placeholder=""></textarea>
+                        <div class="invalid-feedback" id='comment_error'></div>
+
+
+                        <button class="btn btn-sm btn-circle btn-border mt-20" type="submit">Send messagge</button>
+
                     </form>
                 </div>
                 <div class="col-lg-4">
@@ -333,27 +327,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 order-md-last">
-                    <form action="themekit/scripts/contact-form/contact-form.php" class="form-box form-ajax form-inline"
-                        method="post" data-email="example@domain.com">
+                    <h4 id="sub_success" style=" display: none;"></h4>
+
+                    <form id="subscriptionForm" class="form-box form-contact" method="post">
                         <div class="row">
                             <div class="col-lg-8">
                                 <p>Type your email</p>
-                                <input id="email" name="email" placeholder="" type="email" class="input-text" required>
+                                <input id="_email" name="email" placeholder="" type="email" class="input-text">
+                                <input id="b_b7ef45306f8b17781aa5ae58a_6b09f39a55"
+                                    name="b_b7ef45306f8b17781aa5ae58a_6b09f39a55" tabindex="-1" placeholder=""
+                                    type="hidden">
                             </div>
+                            <span class="invalid-feedback" id='sub_error'></span>
                             <div class="col-lg-4">
                                 <p></p>
                                 <button class="btn btn-sm" type="submit">Subscribe</button>
                             </div>
                         </div>
 
-                        <div class="success-box">
-                            <div class="alert alert-success">Congratulations. Your message has been sent
-                                successfully</div>
-                        </div>
-                        <div class="error-box">
-                            <div class="alert alert-warning">Error, please retry. Your message has not been sent
-                            </div>
-                        </div>
+
                     </form>
                 </div>
                 <div class="col-lg-4 order-md-first">

@@ -34,38 +34,27 @@
         </div>
 
         <div class="col-lg-9">
+          <%messages.map(message=>{%>
           <div class="collapse-box" data-height="150">
-            <h3>Jhon Doe</h3>
-            <small>jhon@gmai.com</small>
-            <div class="content" style="height: 150px; display: block;">
+            <h3><%=message.name%></h3>
+            <small><%=message.email%></small>
+            <div class="content" style="height: 10px; display: block;">
               <p>
-                Lorem ipsum dolor sitamet consectetur adipisicing elito sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea coSed ut perspiciatis unde omnis iste natus error sit voluptatem.
-                Lorem ipsum dolor sit amet consectetur adipiscing elitsed do eiusmod tempor incididunt utlabore et
-                dolore magna aliqua.
-                Utenim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Lorem ipsum dolor sitamet consectetur adipisicing elito sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea coSed ut perspiciatis unde omnis iste natus error sit voluptatem.
-                Lorem ipsum dolor sit amet consectetur adipiscing elitsed do eiusmod tempor incididunt utlabore et
-                dolore magna aliqua.
-                Utenim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                <%=message.message%>
               </p>
             </div>
             <div class="collapse-button">
+              <%if(message.message.length>500){%>
               <a data-button-open-text="Close" data-button-close-text="Show all">Show all</a>
+              <%}%>
             </div>
           </div>
-        </div>
-      </div>
-      <hr class="space-lg" />
+          <%})%>
+            </div>
+          </div>
+          <hr class="space-lg" />
 
-    </div>
+        </div>
   </section>
   <script src="/../../themekit/scripts/progress.js"></script>
 </main>

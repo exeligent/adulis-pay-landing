@@ -44,31 +44,13 @@
               </tr>
             </thead>
             <tbody>
+              <%subscribers.forEach(subs=>{%>
               <tr>
-                <td>Lorem ipsum</td>
-                <td>Lorem ipsum</td>
+                <td><%=subs.email%></td>
+                <td><%=subs.date.toDateString()%></td>
 
               </tr>
-              <tr>
-                <td>Lorem ipsum</td>
-                <td>Lorem ipsum</td>
-
-              </tr>
-              <tr>
-                <td>Lorem ipsum</td>
-                <td>Lorem ipsum</td>
-
-              </tr>
-              <tr>
-                <td>Lorem ipsum</td>
-                <td>Lorem ipsum</td>
-
-              </tr>
-              <tr>
-                <td>Lorem ipsum</td>
-                <td>Lorem ipsum</td>
-
-              </tr>
+              <%})%>
             </tbody>
           </table>
 

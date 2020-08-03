@@ -30,7 +30,7 @@
     data-scroll-detect="true" id="main-nav">
     <div class="container">
       <div class="menu-brand">
-        <a href="#">
+        <a href="#overview">
           <img class="logo-default" src="/media/logo-light.svg" alt="logo" />
           <img class="logo-retina" src="/media/logo-light.svg" alt="logo" />
         </a>
@@ -38,9 +38,7 @@
       <i class="menu-btn"></i>
       <div class="menu-cnt">
         <ul>
-          <li>
-            <a href="#overview">Overview</a>
-          </li>
+          <%if(!currentUser){%>
           <li>
             <a href="#features">Features</a>
           </li>
@@ -53,7 +51,23 @@
           <li>
             <a href="#faq">FAQ</a>
           </li>
-
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+          <%}else{%>
+          <li>
+            <a href="/dashboard">dashboard</a>
+          </li>
+          <li>
+            <a href="/dashboard">Messages</a>
+          </li>
+          <li>
+            <a href="/dashboard">Subscription</a>
+          </li>
+          <li>
+            <a href="/dashboard">Register</a>
+          </li>
+          <%}%>
 
         </ul>
         <div class="menu-right">
@@ -65,11 +79,19 @@
               </ul>
             </li>
           </ul>
+          <%if(!currentUser){%>
           <div class="menu-custom-area">
             <a class="btn btn-border btn-icon btn-circle  btn-xs" href="#"><i class="im-android light"></i>
               Download now</a>
 
           </div>
+          <%}else{%>
+          <div class="menu-custom-area">
+            <a class="btn btn-border  btn-circle  btn-xs" href="/user/logout"></i>
+              Logout</a>
+
+          </div>
+          <%}%>
         </div>
         <div class="clear"></div>
       </div>

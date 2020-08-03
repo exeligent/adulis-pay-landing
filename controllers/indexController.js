@@ -1,7 +1,19 @@
+const validateContactInput = require("../validation/contactValidation");
+const subValidation = require("../validation/subscribe");
+const Contact = require("../model/contact");
+const Subscribe = require("../model/subscription");
 module.exports = {
   renderHome: async (req, res, next) => {
     try {
       res.render("index");
+    } catch (error) {
+      console.log("error", error);
+      res.json("server error!");
+    }
+  },
+  renderFeature: async (req, res, next) => {
+    try {
+      res.render("feature");
     } catch (error) {
       console.log("error", error);
       res.json("server error!");
@@ -14,24 +26,23 @@ module.exports = {
     if (!isValid) {
       return res.json(errors);
     }
-    const { name, email, phone, comment, captcha } = req.body;
+    const { name, email, comment, captcha } = req.body;
     const contactBody = {};
     if (name) contactBody.name = name;
     if (email) contactBody.email = email;
-    if (phone) contactBody.phone = phone;
     if (comment) contactBody.message = comment;
     if (captcha) contactBody.captcha = captcha;
     //captcha validation
-    if (captcha === "" || captcha === undefined || captcha === null) {
+    /*     if (captcha === "" || captcha === undefined || captcha === null) {
       const errors = { captcha: "Please select captcha" };
 
       return res.json(errors);
-    }
+    } */
     //Secret key
     const sectretKey = "6Le_XAEVAAAAAK_tvhXfXSeCZn5q1PMS7Q8osuCL";
 
     //Varify url
-    const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${sectretKey}&response=${captcha}&remoteip${req.connection.remoteAddress}`;
+    /*   const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${sectretKey}&response=${captcha}&remoteip${req.connection.remoteAddress}`;
 
     //make request to Verify url
     request(verifyUrl, async (err, response, body) => {
@@ -42,27 +53,26 @@ module.exports = {
         const errors = { captcha: "Faild captcha varification!" };
 
         return res.json(errors);
-      }
-      // if successful
-      const contact = new Contact(contactBody);
-      await contact.save();
-      req.flash(
-        "success_form",
-        "Your message is sent successfully. Thank you!"
-      );
-      const success = { success: true };
-      res.json(success);
-    });
+      } */
+    // if successful
+    const contact = new Contact(contactBody);
+    await contact.save();
+    req.flash("success_form", "Your message is sent successfully. Thank you!");
+    const success = { success: true };
+    res.json(success);
+    // });
   },
 
   subscribe: async (req, res, next) => {
     try {
+      console.log("req.body", req.body);
       if (req.body.b_b7ef45306f8b17781aa5ae58a_6b09f39a55) {
-        return res.status(400).json("Robot registeration detected!");
+        return res.status(401).json({ error: "Robot registeration detected!" });
       }
       const { errors, isValid } = subValidation(req.body);
 
       if (!isValid) {
+        console.log("errors", errors);
         req.flash("sub_error", "Invalid input! Please try again...");
         return res.redirect("/#subscribe");
       } else {
@@ -73,24 +83,26 @@ module.exports = {
           req.session.sub = email;
 
           req.flash("success_form", "Thank you for subscribing!");
-          return res.redirect("/#subscribe");
+          return res.json({ success: true });
         }
         subscriptioContent = {};
         if (email) subscriptioContent.email = email;
 
         const subscribe = new Subscribe(subscriptioContent);
         await subscribe.save();
-        req.session.sub = email;
+        // req.session.sub = email;
+        return res.json({ success: true });
+
         //construct req data
-        const data = {
+        /*     const data = {
           members: [
             {
               email_address: email,
               status: "subscribed",
             },
           ],
-        };
-
+        }; */
+        /* 
         const postData = JSON.stringify(data);
         //send to mail chimp
         const options = {
@@ -116,7 +128,7 @@ module.exports = {
               res.redirect("/");
             }
           }
-        });
+        }); */
       }
     } catch (error) {
       console.log("error", error);

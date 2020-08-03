@@ -1,89 +1,52 @@
-/*
---------------------------------
-Ajax Contact Form
---------------------------------
-*/
+document.getElementById("contactForm").addEventListener("submit", submitForm);
+function submitForm(e) {
+  e.preventDefault();
+  const name = document.querySelector("#name").value;
+  const email = document.querySelector("#email").value;
+  const comment = document.querySelector("#comment").value;
+  // const captcha = document.querySelector("#g-recaptcha-response").value;
+  console.log("name,email,comment", name, email, comment);
+  fetch("/contact", {
+    method: "POST",
+    headers: {
+      Accept: "application/json , text/plain, */*",
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ name, email, comment /* , captcha */ }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      //init views
+      document.getElementById("name_error").innerHTML = "";
 
-(function ($, window, document, undefined) {
-    'use strict';
-    var form;
+      document.getElementById("email_error").innerHTML = "";
 
-    $(document).ready(function () {
-        $('.form-ajax').each(function (index) {
-            form = this;
-            var sendToEmail = $(this).attr("data-email");
-            var engine = $(this).attr("data-engine");
-            var grecaptcha_token = "";
-            var subject = $(this).attr("data-subject");
-            if (isEmpty(engine)) engine = "php";
-            if (isEmpty(sendToEmail)) sendToEmail = '';
-            if (isEmpty(subject)) subject = '';
+      document.getElementById("comment_error").innerHTML = "";
 
-            $(form).submit(function (e) {
-                $('.form-group').removeClass('has-error');
-                $('.help-block').remove();
+      /*  document.getElementById("captcha_error").innerHTML = "";
+       */
+      //setup errors
+      /*     if (data.captcha) {
+        document.getElementById("captcha_error").innerHTML = data.captcha;
+      } */
+      if (data.name) {
+        document.getElementById("name_error").innerHTML = data.name;
+      }
+      if (data.email) {
+        document.getElementById("email_error").innerHTML = data.email;
+      }
 
-                // Google reCaptcha
-                if (typeof grecaptcha !== 'undefined') {
-                    var client_key = $('#recaptcha').attr('src');
-                    client_key = client_key.substring(client_key.indexOf('=') + 1, client_key.length);
-                    grecaptcha.ready(function () {
-                        grecaptcha.execute(client_key, { action: 'homepage' }).then(function (token) {
-                            grecaptcha_token = token;
-                            send_message(sendToEmail, subject, engine, grecaptcha_token);
-                        });
-                    });
-                } else {
-                    send_message(sendToEmail, subject, engine, "");
-                }
-                $(form).find(".cf-loader").show();
-                e.preventDefault();
-            });
-        });
+      if (data.comment) {
+        document.getElementById("comment_error").innerHTML = data.comment;
+      }
+
+      //if success
+      if (data.success) {
+        document.getElementById("success").innerHTML =
+          "Your message has been sent successfully. Thank you for your  feedback! we will replay to you by your email shortly.";
+        document.getElementById("success").style["display"] = "inline-block";
+        document.getElementById("success").style["textAlign"] = "center";
+        document.getElementById("contactForm").style["display"] = "none";
+      }
     });
-    function send_message(sendToEmail, subject, engine, grecaptcha_token) {
-        var formData = {
-            'values': {},
-            'domain': window.location.hostname.replace("www.", ""),
-            'email': sendToEmail,
-            'subject_email': subject,
-            'engine': engine,
-            'grecaptcha': grecaptcha_token
-        };
-
-        $(form).find("input,textarea,select").each(function () {
-            var val = $(this).val();
-            if (!isEmpty(val)) {
-                var name = $(this).attr("data-name");
-                if (isEmpty(name)) name = $(this).attr("name");
-                if (isEmpty(name)) name = $(this).attr("id");
-                var error_msg = $(this).attr("data-error");
-                if (isEmpty(error_msg)) error_msg = "";
-                formData['values'][name] = [val, error_msg];
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
-            url: $(form).attr("action"),
-            data: formData,
-            dataType: 'json',
-            encode: true
-        }).done(function (data) {
-            if (!data.success) {
-                // Error
-                console.log(data);
-                $(form).find(".error-box").show();
-            } else {
-                // Success
-                $(form).html($(form).find(".success-box").html());
-            }
-            $(form).find(".cf-loader").hide();
-        }).fail(function (data) {
-            // Error
-            console.log(data);
-            $(form).find(".error-box").show();
-            $(form).find(".cf-loader").hide();
-        });
-    }
-}(jQuery, window, document));
+}
