@@ -8,13 +8,29 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 //mongose setup
-mongoose
+/* mongoose
   .connect("mongodb://127.0.0.1/edufin", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err)); */
+
+mongoose
+  .connect(
+    "mongodb://exeligent-shard-00-01-knapx.mongodb.net:27017,exeligent-shard-00-02-knapx.mongodb.net:27017/test?ssl=true&replicaSet=Exeligent-shard-0&authSource=admin&retryWrites=true&w=majority",
+    {
+      auth: {
+        user: "sam",
+        password: "9604040347",
+      },
+    }
+  )
+  .then(() => console.log("atlas db connected"))
+  .catch((err) => {
+    console.log("err", err);
+  });
+
 app.use(methodOverride("_method"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

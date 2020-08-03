@@ -13,7 +13,7 @@ router.route("/messages").get(isLoggedIn, renderMessages);
 
 router.route("/subscribers").get(isLoggedIn, renderSubscribers);
 
-router.route("/register").get(renderRegister);
+router.route("/register").get(isLoggedIn, renderRegister);
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {

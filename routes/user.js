@@ -7,14 +7,14 @@ const {
 } = require("../controllers/authController");
 const passport = require("passport");
 
-router.route("/register").post(registerAdmin);
+router.route("/register").post(isLoggedIn, registerAdmin);
 
 router.route("/login").get(renderLogin);
 
 router.post(
   "/login",
   passport.authenticate("local.signin", {
-    successRedirect: "/",
+    successRedirect: "/dashboard",
     failureRedirect: "/user/login",
     failureFlash: true,
   })
