@@ -7,7 +7,7 @@ const {
 } = require("../controllers/authController");
 const passport = require("passport");
 
-router.route("/register").post(isLoggedIn, registerAdmin);
+router.route("/register").post(registerAdmin);
 
 router.route("/login").get(renderLogin);
 
